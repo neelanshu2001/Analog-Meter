@@ -18,7 +18,8 @@ import Speedometer, {
 
 export default function Gas({navigation,name,data}) {
   return (
-    <View style={{margin:2, marginHorizontal:'auto'}}>
+    <View>
+    <View style={{margin:2,alignItems:'center'}}>
         <View
       style={{
         flexWrap: 'wrap',
@@ -109,6 +110,7 @@ export default function Gas({navigation,name,data}) {
       </View>
       </View>
      
+    </View>
     </View>
   );
 }

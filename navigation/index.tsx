@@ -35,7 +35,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function HomeScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: '' }}>
+    <View style={{ flex: 1, alignItems: 'center' }}>
       <Text>Home Screen</Text>
       <View style={{margin:4 , width:100}}>
       <Button
@@ -53,22 +53,13 @@ function HomeScreen({ navigation }) {
   );
 }
 
-function gas({navigation,title}){
-  return(
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: '' }}>
-      <Text>VOCS</Text>
-     
-    </View>
-  )
-}
-
 function Gases({ navigation }) {
  
   return (
     
      
     
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: '' }}>
+    <View style={{ flex: 1, alignItems: 'center' }}>
       <Text>Gases</Text>
     {gases.map((gas,idx)=>(
       
@@ -88,7 +79,7 @@ function Gases({ navigation }) {
 function VOCS({ navigation }) {
   return (
 
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: '' }}>
+    <View style={{ flex: 1, alignItems: 'center' }}>
       <Text>VOCS</Text>
       {gases.map((gas,idx)=>(
       
