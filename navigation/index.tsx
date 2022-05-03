@@ -3,22 +3,20 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { FontAwesome } from '@expo/vector-icons';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 import { ColorSchemeName, Pressable } from 'react-native';
+import { Button, View, Text } from 'react-native';
 
-import Colors from '../constants/Colors';
-import useColorScheme from '../hooks/useColorScheme';
-import ModalScreen from '../screens/ModalScreen';
-import NotFoundScreen from '../screens/NotFoundScreen';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
+import Gas from '../screens/Gas';
+
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 
+
+const gases=[{name:'So2',data:{m1:'10',m2:'10',m3:'10',m4:'10'}},{name:'No2',data:{m1:'30',m2:'50',m3:'60',m4:'70'}}];
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
     <NavigationContainer
@@ -35,14 +33,89 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
  */
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
+function HomeScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: '' }}>
+      <Text>Home Screen</Text>
+      <View style={{margin:4 , width:100}}>
+      <Button
+        title="Gases"
+        onPress={() => navigation.navigate('Gases')}
+      />
+      </View>
+      <View style={{margin:4, width:100}}>
+       <Button
+        title="VOCS" 
+        onPress={() => navigation.navigate('VOCS')}
+      />
+      </View>
+    </View>
+  );
+}
+
+function gas({navigation,title}){
+  return(
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: '' }}>
+      <Text>VOCS</Text>
+     
+    </View>
+  )
+}
+
+function Gases({ navigation }) {
+ 
+  return (
+    
+     
+    
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: '' }}>
+      <Text>Gases</Text>
+    {gases.map((gas,idx)=>(
+      
+      <View key={idx} style={{margin:4 ,width:100}}>
+      <Button
+        title={gas.name}
+        onPress={() => navigation.navigate(gas)}
+      />
+      </View>
+
+
+    ))}
+    </View>
+    
+  );
+}
+function VOCS({ navigation }) {
+  return (
+
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: '' }}>
+      <Text>VOCS</Text>
+      {gases.map((gas,idx)=>(
+      
+      <View key={idx} style={{margin:4 ,width:100}}>
+      <Button
+        title={gas.name}
+        onPress={() => navigation.navigate(gas.name)}
+      />
+      </View>    ))}
+    </View>
+  );
+}
+
+
+
 function RootNavigator() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
-      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-      <Stack.Group screenOptions={{ presentation: 'modal' }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
-      </Stack.Group>
+    <Stack.Navigator >
+      
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="VOCS" component={VOCS} />
+      <Stack.Screen name="Gases" component={Gases} />
+      {gases.map((gas,idx)=>(
+        <Stack.Screen name={gas.name} key={idx}>
+          {props=> <Gas name={gas.name} data={gas.data} />}
+          </Stack.Screen>
+      ))}
     </Stack.Navigator>
   );
 }
@@ -51,57 +124,5 @@ function RootNavigator() {
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
  * https://reactnavigation.org/docs/bottom-tab-navigator
  */
-const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
-function BottomTabNavigator() {
-  const colorScheme = useColorScheme();
 
-  return (
-    <BottomTab.Navigator
-      initialRouteName="TabOne"
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
-      }}>
-      <BottomTab.Screen
-        name="TabOne"
-        component={TabOneScreen}
-        options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate('Modal')}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}>
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
-          ),
-        })}
-      />
-      <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoScreen}
-        options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-        }}
-      />
-    </BottomTab.Navigator>
-  );
-}
-
-/**
- * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
- */
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
-  color: string;
-}) {
-  return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
-}

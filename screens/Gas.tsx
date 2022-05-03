@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
-import { RootTabScreenProps } from '../types';
+
 import Speedometer, {
   Background,
   Arc,
@@ -10,14 +10,15 @@ import Speedometer, {
   Progress,
   Marks,
   Indicator,
+  DangerPath
 } from 'react-native-cool-speedometer';
 
 // a few lines later ...
 
 
-export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
+export default function Gas({navigation,name,data}) {
   return (
-    <View style={styles.container}>
+    <View style={{margin:2, marginHorizontal:'auto'}}>
         <View
       style={{
         flexWrap: 'wrap',
@@ -25,11 +26,11 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
         flexDirection: 'row',
         
       }}>
-        <View style={{marginHorizontal:10}}>
+        <View style={{marginHorizontal:10, marginVertical:10}}>
       <Speedometer
       
        width={100}
-        value={100}
+        value={data.m1}
         fontFamily='squada-one'
       >
         <Background />
@@ -38,11 +39,15 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
         <Progress/>
         <Marks fontSize={10} numbersRadius={10}/>
         <Indicator fontSize={20}/>
+        <DangerPath  angle={30}/>
       </Speedometer>
+      <View style={{alignSelf:'center'}}>
+      <Text style={{alignItems:'center',justifyContent:'center'}}>R</Text>
       </View>
-      <View style={{marginHorizontal:10}}>
+      </View>
+      <View style={{marginHorizontal:10, marginVertical:10}}>
       <Speedometer width={100}
-        value={128}
+        value={data.m2}
         fontFamily='squada-one'
       >
         <Background />
@@ -51,7 +56,12 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
         <Progress/>
         <Marks fontSize={10} numbersRadius={10}/>
         <Indicator fontSize={20}/>
+        <DangerPath/>
       </Speedometer>
+      <View style={{alignSelf:'center'}}>
+      <Text style={{alignItems:'center',justifyContent:'center'}}>R</Text>
+      </View>
+      
       </View>
       </View>
       <View
@@ -61,11 +71,11 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
         flexDirection: 'row',
         
       }}>
-        <View style={{marginHorizontal:10}}>
+        <View style={{marginHorizontal:10, marginVertical:10}}>
       <Speedometer
       
        width={100}
-        value={100}
+        value={data.m3}
         fontFamily='squada-one'
       >
         <Background />
@@ -74,11 +84,15 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
         <Progress/>
         <Marks fontSize={10} numbersRadius={10}/>
         <Indicator fontSize={20}/>
+        <DangerPath/>
       </Speedometer>
+      <View style={{alignSelf:'center'}}>
+      <Text style={{alignItems:'center',justifyContent:'center'}}>R</Text>
       </View>
-      <View style={{marginHorizontal:10}}>
+      </View>
+      <View style={{marginHorizontal:10, marginVertical:10}}>
       <Speedometer width={100}
-        value={128}
+        value={data.m4}
         fontFamily='squada-one'
       >
         <Background />
@@ -87,12 +101,14 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
         <Progress/>
         <Marks fontSize={10} numbersRadius={10}/>
         <Indicator fontSize={20}/>
+        <DangerPath/>
       </Speedometer>
+      <View style={{alignSelf:'center'}}>
+      <Text style={{alignItems:'center',justifyContent:'center'}}>R</Text>
       </View>
       </View>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
+      </View>
+     
     </View>
   );
 }
